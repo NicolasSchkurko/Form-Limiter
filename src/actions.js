@@ -1,3 +1,5 @@
+var scriptProperties = PropertiesService.getScriptProperties();
+
 /**
  * Sets the maximum number of allowed responses.
  * @param {string} limit The maximum number of responses as a string.

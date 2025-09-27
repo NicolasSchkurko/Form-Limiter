@@ -1,3 +1,5 @@
+var scriptProperties = PropertiesService.getScriptProperties();
+
 /**
  * Checks if the response limit has been reached every time the form is submitted.
  * @param {object} e The event parameter for an onFormSubmit trigger.

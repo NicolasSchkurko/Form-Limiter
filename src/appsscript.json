@@ -7,6 +7,13 @@
     "https://www.googleapis.com/auth/script.container.ui",
     "https://www.googleapis.com/auth/forms.currentonly",
     "https://www.googleapis.com/auth/script.scriptapp"
-  ]
+  ],  
+  "addOns": {
+    "common": {
+      "name": "Form Limiter",
+      "logoUrl": "https://github.com/NicolasSchkurko/Form-Limiter/blob/main/misc/LimiterIcon.jpg?raw=true",
+      "useLocaleFromApp": true
+    }
+  }
 }
 

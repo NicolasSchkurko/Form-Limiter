@@ -1,9 +1,3 @@
-/**
- * @OnlyCurrentDoc
- * The above comment directs Apps Script to limit the scope of file access for this script
- * to only the current document containing the script.
- */
-
 var scriptProperties = PropertiesService.getScriptProperties();
 
 /**
