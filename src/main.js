@@ -36,6 +36,8 @@ function showLimitDialog() {
   template.confirmationMessage = confirmationMessage;
   template.closedMessage = closedMessage;
 
-  var ui = template.evaluate().setWidth(450).setHeight(550);
+  // The .setWidth() and .setHeight() methods have been removed to make the dialog responsive.
+  var ui = template.evaluate();
   FormApp.getUi().showModalDialog(ui, 'Limiter Settings');
 }
+

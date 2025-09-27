@@ -13,12 +13,12 @@ function setMaxResponses(limit) {
       setTrigger(); // Ensure the onFormSubmit trigger exists.
       return 'Limit set to ' + limitNumber + ' responses.';
     }
-    return 'Error: Please enter a valid number greater than zero.';
+    throw new Error('Please enter a valid number greater than zero.');
   } catch (e) {
     if (e.message.includes('PERMISSION_DENIED')) {
-      return 'Permission Error: It seems you have multiple Google accounts logged in. Please log out of other accounts and try again.';
+      throw new Error('Permission Error: It seems you have multiple Google accounts logged in. Please log out of other accounts and try again.');
     }
-    return 'Unexpected error: ' + e.message;
+    throw new Error(e.message);
   }
 }
 
@@ -29,14 +29,17 @@ function setMaxResponses(limit) {
  */
 function setConfirmationMessage(message) {
   try {
+    if (!message || message.trim() === '') {
+      throw new Error('Confirmation message cannot be empty.');
+    }
     var form = FormApp.getActiveForm();
     form.setConfirmationMessage(message);
     return 'Confirmation message updated successfully.';
   } catch (e) {
     if (e.message.includes('PERMISSION_DENIED')) {
-      return 'Permission Error: It seems you have multiple Google accounts logged in. Please log out of other accounts and try again.';
+      throw new Error('Permission Error: It seems you have multiple Google accounts logged in. Please log out of other accounts and try again.');
     }
-    return 'Unexpected error: ' + e.message;
+    throw new Error(e.message);
   }
 }
 
@@ -47,13 +50,17 @@ function setConfirmationMessage(message) {
  */
 function setClosedMessage(message) {
   try {
+    if (!message || message.trim() === '') {
+      throw new Error('Closed form message cannot be empty.');
+    }
     var form = FormApp.getActiveForm();
     form.setCustomClosedFormMessage(message);
     return 'Closed form message updated successfully.';
   } catch (e) {
     if (e.message.includes('PERMISSION_DENIED')) {
-      return 'Permission Error: It seems you have multiple Google accounts logged in. Please log out of other accounts and try again.';
+      throw new Error('Permission Error: It seems you have multiple Google accounts logged in. Please log out of other accounts and try again.');
     }
-    return 'Unexpected error: ' + e.message;
+    throw new Error(e.message);
   }
 }
+

@@ -7,7 +7,7 @@
     "https://www.googleapis.com/auth/script.container.ui",
     "https://www.googleapis.com/auth/forms.currentonly",
     "https://www.googleapis.com/auth/script.scriptapp"
-  ],  
+  ],
   "addOns": {
     "common": {
       "name": "Form Limiter",
@@ -16,4 +16,3 @@
     }
   }
 }
-
