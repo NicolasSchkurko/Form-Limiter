@@ -196,11 +196,16 @@
 
       function closeErrorModal() {
         document.getElementById('errorModal').style.display = 'none';
+        document.getElementById('errorMessage').textContent = "";
+      }
+
+      function isAnErrorButton (button){
+        return button.closest('.modal-content')
       }
 
       function setButtonsDisabled(disabled) {
         document.querySelectorAll('button').forEach(function(button) {
-          if (!button.closest('.modal-content')) {
+          if (!isAnErrorButton(button)) {
             button.disabled = disabled;
           }
         });
