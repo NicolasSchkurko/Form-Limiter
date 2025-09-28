@@ -1,264 +1,238 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-      html {
-        box-sizing: border-box;
-        font-size: 16px; 
-      }
-      *, *:before, *:after {
-        box-sizing: inherit;
-      }
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        background-color: #f9f9f9;
-        margin: 0;
-        padding: 1.25rem;
-        line-height: 1.5;
-      }
-      .container {
-        background-color: white;
-        padding: 1.25rem;
-        border-radius: 0.5rem;
-        box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.08);
-        width: 100%;
-        max-width: 30rem;
-        margin: auto;
-      }
-      h2 {
-        text-align: center;
-        color: #2c3e50;
-        margin-top: 0;
-        margin-bottom: 1.25rem;
-        font-size: clamp(1.25rem, 5vw, 1.6rem);
-      }
-      label {
-        font-size: 1rem;
-        font-weight: 600;
-        margin-top: 1.25rem;
-        margin-bottom: 0.5rem;
-        display: block;
-        color: #34495e;
-      }
-      p {
-        margin: 0.3rem 0 1.25rem 0;
-        color: #7f8c8d;
-        font-size: 0.9rem;
-      }
-      .current-value {
-        font-weight: 600;
-        color: #007bff;
-      }
-      input[type="number"], input[type="text"] {
-        width: 100%;
-        padding: 0.75rem;
-        margin-bottom: 0.625rem;
-        border: 1px solid #bdc3c7;
-        border-radius: 0.375rem;
-        font-size: 1rem;
-        transition: border-color 0.2s, box-shadow 0.2s;
-      }
-      input[type="number"]:focus, input[type="text"]:focus {
-        outline: none;
-        border-color: #007bff;
-        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
-      }
-      button {
-        background-color: #007bff;
-        color: white;
-        padding: 0.75rem 1.25rem;
-        border: none;
-        border-radius: 0.375rem;
-        cursor: pointer;
-        font-size: 1rem;
-        font-weight: 600;
-        transition: background-color 0.2s, opacity 0.2s;
-        width: 100%;
-      }
-      button:hover {
-        background-color: #0056b3;
-      }
-      button:disabled {
-        background-color: #5a9ed8;
-        cursor: not-allowed;
-        opacity: 0.7;
-      }
-      #status {
-        text-align: center;
-        font-weight: bold;
-        min-height: 1.5rem;
-        margin-bottom: 1rem;
-      }
-      .modal-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-        padding: 1rem;
-      }
-      .modal-content {
-        background: white;
-        padding: 1.5rem;
-        border-radius: 0.5rem;
-        box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.3);
-        width: 100%;
-        max-width: 25rem;
-        text-align: center;
-      }
-      .modal-content h3 {
-        margin-top: 0;
-        color: #c0392b;
-      }
-      .modal-content p {
-        color: #34495e;
-        font-size: 1rem;
-        line-height: 1.5;
-      }
-      .modal-content button {
-        margin-top: 1rem;
-        background-color: #c0392b;
-        width: auto;
-        padding: 0.5rem 1.5rem;
-      }
-      .modal-content button:hover {
-        background-color: #a93226;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h2>Limiter Settings</h2>
+<head>
+  <base target="_top">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html {
+      box-sizing: border-box;
+      font-size: 16px; 
+    }
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 1.25rem;
+      line-height: 1.5;
+    }
+    .container {
+      background-color: white;
+      padding: 1.25rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.08);
+      width: 100%;
+      margin: auto;
+    }
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: clamp(1.25rem, 5vw, 1.6rem);
+    }
+    .logo-png {
+      display: block;
+      margin: 0 auto 1rem; 
+      width: 4rem;         
+      height: 4rem;
+      object-fit: contain; 
+    }
+    .info-bar { 
+      text-align: center;
+      background-color: #f1f3f5;
+      padding: 0.75rem;
+      border-radius: 0.375rem;
+      margin-bottom: 1.25rem;
+      font-size: 0.9rem;
+    }
+    label {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: 1.25rem;
+      margin-bottom: 0.5rem;
+      display: block;
+      color: #34495e;
+    }
+    input[type="number"], input[type="text"] {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      border: 1px solid #bdc3c7;
+      border-radius: 0.375rem;
+      font-size: 1rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    input:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      padding: 0.75rem 1.25rem;
+      border: none;
+      border-radius: 0.375rem;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: background-color 0.2s, opacity 0.2s;
+      width: 100%;
+      margin-top: 0.5rem; 
+    }
+    button:hover { background-color: #0056b3; }
+    button:disabled {
+      background-color: #5a9ed8;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+    p {
+      margin: 0.3rem 0;
+      color: #7f8c8d;
+      font-size: 0.9rem;
+    }
+    .current-value {
+      font-weight: 600;
+      color: #007bff;
+    }
+    #status {
+      text-align: center;
+      font-weight: bold;
+      min-height: 1.5rem;
+      margin-bottom: 1rem;
+    }
 
-      <p style="text-align: center;">
-        <strong>Current number of responses:</strong> 
-        <span class="current-value" id="currentResponses"><?= currentResponses ?></span>
-      </p>
+    /* Estilos del modal */
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none; justify-content: center; align-items: center;
+      z-index: 1000; padding: 1rem;
+    }
+    .modal-content {
+      background: white; padding: 1.5rem; border-radius: 0.5rem;
+      box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.3);
+      width: 100%; max-width: 25rem; text-align: center;
+    }
+    .modal-content h3 { margin-top: 0; color: #c0392b; }
+    .modal-content p { color: #34495e; font-size: 1rem; }
+    .modal-content button {
+      margin-top: 1rem; background-color: #c0392b; width: auto; padding: 0.5rem 1.5rem;
+    }
+    .modal-content button:hover { background-color: #a93226; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Limiter Settings</h2>
 
-      <div id="status"></div>
+    <img class="logo-png" src="https://raw.githubusercontent.com/NicolasSchkurko/Form-Limiter/refs/heads/main/misc/LimiterIcon.jpg" alt="Logo">
 
-      <div>
-        <label for="limit">Set Response Limit:</label>
-        <input type="number" id="limit" min="1" value="<?= maxResponses ?>">
-        <p><strong>Current:</strong> <span class="current-value" id="currentLimit"><?= maxResponses ?></span></p>
-        <button onclick="setLimit()">Save Limit</button>
-      </div>
-      
-      <div>
-        <label for="confirmationMessage">Confirmation Message:</label>
-        <input type="text" id="confirmationMessage" value="<?= confirmationMessage ?>">
-        <p><strong>Current:</strong> <span class="current-value" id="currentConfirmationMessage"><?= confirmationMessage ?></span></p>
-        <button onclick="setMessage()">Update Confirmation</button>
-      </div>
-
-      <div>
-        <label for="closedMessage">Message when form is closed:</label>
-        <input type="text" id="closedMessage" value="<?= closedMessage ?>">
-        <p><strong>Current:</strong> <span class="current-value" id="currentClosedMessage"><?= closedMessage ?></span></p>
-        <button onclick="setClosedMessage()">Update Closed Message</button>
-      </div>
+    <div class="info-bar">
+      <strong>Current responses:</strong> 
+      <span class="current-value"><?= currentResponses ?></span>
     </div>
 
-    <div id="errorModal" class="modal-overlay" style="display: none;">
-      <div class="modal-content">
-        <h3>Error Occurred</h3>
-        <p id="errorMessage"></p>
-        <button onclick="closeErrorModal()">Close</button>
-      </div>
+    <div id="status"></div>
+
+    <div>
+      <label for="limit">Set Response Limit:</label>
+      <input type="number" id="limit" min="1" value="<?= maxResponses === 'Not set' ? '' : maxResponses ?>">
+      <button onclick="setLimit()">Save Limit</button>
+      <p><strong>Current:</strong> <span class="current-value" id="currentLimit"><?= maxResponses ?></span></p>
+    </div>
+    
+    <div>
+      <label for="confirmationMessage">Confirmation Message:</label>
+      <input type="text" id="confirmationMessage" value="<?= confirmationMessage ?>">
+      <button onclick="setMessage()">Update Confirmation</button>
+      <p><strong>Current:</strong> <span class="current-value" id="currentConfirmationMessage"><?= confirmationMessage ?></span></p>
     </div>
 
-    <script>
-      function showStatus(msg) {
-        var statusDiv = document.getElementById("status");
-        statusDiv.style.color = 'green';
-        statusDiv.textContent = msg;
-        setTimeout(function() { statusDiv.textContent = ''; }, 3000);
-      }
+    <div>
+      <label for="closedMessage">Message when form is closed:</label>
+      <input type="text" id="closedMessage" value="<?= closedMessage ?>">
+      <button onclick="setClosedMessage()">Update Closed Message</button>
+      <p><strong>Current:</strong> <span class="current-value" id="currentClosedMessage"><?= closedMessage ?></span></p>
+    </div>
+  </div>
 
-      function onFailure(error) {
-        var statusDiv = document.getElementById("status");
-        statusDiv.style.color = 'red';
-        statusDiv.textContent = 'Error: ' + error.message;
-        showErrorModal(error.message);
-        setTimeout(function() { statusDiv.textContent = ''; statusDiv.style.color = 'green'; }, 5000);
-      }
+  <div id="errorModal" class="modal-overlay">
+    <div class="modal-content">
+      <h3>Error Occurred</h3>
+      <p id="errorMessage"></p>
+      <button onclick="closeErrorModal()">Close</button>
+    </div>
+  </div>
 
-      function showErrorModal(message) {
-        document.getElementById('errorMessage').textContent = message;
-        document.getElementById('errorModal').style.display = 'flex';
-      }
+  <script>
+    function handleSuccess(msg, callback) {
+      var statusDiv = document.getElementById("status");
+      statusDiv.style.color = 'green';
+      statusDiv.textContent = msg;
+      if (callback) callback();
+      setButtonsDisabled(false);
+      setTimeout(function() { statusDiv.textContent = ''; }, 3000);
+    }
 
-      function closeErrorModal() {
-        document.getElementById('errorModal').style.display = 'none';
-        document.getElementById('errorMessage').textContent = "";
-      }
+    function handleFailure(error) {
+      document.getElementById('errorMessage').textContent = error.message || 'An unexpected error occurred.';
+      document.getElementById('errorModal').style.display = 'flex';
+      setButtonsDisabled(false);
+    }
+    
+    function closeErrorModal() {
+      document.getElementById('errorModal').style.display = 'none';
+    }
 
-      function isAnErrorButton (button){
-        return button.closest('.modal-content')
-      }
+    function setButtonsDisabled(disabled) {
+      document.querySelectorAll('.container button').forEach(function(button) {
+        button.disabled = disabled;
+      });
+    }
 
-      function setButtonsDisabled(disabled) {
-        document.querySelectorAll('button').forEach(function(button) {
-          if (!isAnErrorButton(button)) {
-            button.disabled = disabled;
-          }
-        });
-      }
+    function setLimit() {
+      setButtonsDisabled(true);
+      var limit = document.getElementById("limit").value;
+      google.script.run
+        .withSuccessHandler(function(msg) {
+          handleSuccess(msg, function() {
+            document.getElementById("currentLimit").textContent = limit || "Not set";
+          });
+        })
+        .withFailureHandler(handleFailure)
+        .setMaxResponses(limit);
+    }
 
-      function setLimit() {
-        var limit = document.getElementById("limit").value;
-        setButtonsDisabled(true);
-        google.script.run
-          .withSuccessHandler(function(msg) {
-            showStatus(msg);
-            document.getElementById("currentLimit").textContent = limit;
-            setButtonsDisabled(false);
-          })
-          .withFailureHandler(function(err) {
-            onFailure(err);
-            setButtonsDisabled(false);
-          })
-          .setMaxResponses(limit);
-      }
-
-      function setMessage() {
-        var message = document.getElementById("confirmationMessage").value;
-        setButtonsDisabled(true);
-        google.script.run
-          .withSuccessHandler(function(msg) {
-            showStatus(msg);
+    function setMessage() {
+      setButtonsDisabled(true);
+      var message = document.getElementById("confirmationMessage").value;
+      google.script.run
+        .withSuccessHandler(function(msg) {
+          handleSuccess(msg, function() {
             document.getElementById("currentConfirmationMessage").textContent = message;
-            setButtonsDisabled(false);
-          })
-          .withFailureHandler(function(err) {
-            onFailure(err);
-            setButtonsDisabled(false);
-          })
-          .setConfirmationMessage(message);
-      }
+          });
+        })
+        .withFailureHandler(handleFailure)
+        .setConfirmationMessage(message);
+    }
 
-      function setClosedMessage() {
-        var message = document.getElementById("closedMessage").value;
-        setButtonsDisabled(true);
-        google.script.run
-          .withSuccessHandler(function(msg) {
-            showStatus(msg);
+    function setClosedMessage() {
+      setButtonsDisabled(true);
+      var message = document.getElementById("closedMessage").value;
+      google.script.run
+        .withSuccessHandler(function(msg) {
+          handleSuccess(msg, function() {
             document.getElementById("currentClosedMessage").textContent = message;
-            setButtonsDisabled(false);
-          })
-          .withFailureHandler(function(err) {
-            onFailure(err);
-            setButtonsDisabled(false);
-          })
-          .setClosedMessage(message);
-      }
-    </script>
-  </body>
+          });
+        })
+        .withFailureHandler(handleFailure)
+        .setClosedMessage(message);
+    }
+  </script>
+</body>
 </html>
 
