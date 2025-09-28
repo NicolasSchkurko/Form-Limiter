@@ -5,18 +5,26 @@ var scriptProperties = PropertiesService.getScriptProperties();
  * @param {object} e The event parameter for an onFormSubmit trigger.
  */
 function checkResponseLimit(e) {
-  var form = FormApp.getActiveForm();
-  var maxResponses = parseInt(scriptProperties.getProperty('maxResponses') || '0', 10);
+  var lock = LockService.getScriptLock();
+  lock.waitLock(30000); // Wait for any other modifications to finish.
+  try {
+    var form = FormApp.getActiveForm();
+    var maxResponses = parseInt(scriptProperties.getProperty('maxResponses') || '0', 10);
 
-  if (maxResponses <= 0) return; // If no limit is set, do nothing.
+    if (maxResponses <= 0) return;
 
-  var currentResponseCount = form.getResponses().length;
-
-  // If the current response count is greater than or equal to the limit, close the form.
-  if (currentResponseCount >= (maxResponses)) {
-    form.setAcceptingResponses(false);
+    // We only need to check if the form is still open
+    if (form.isAcceptingResponses()) {
+      var currentResponseCount = form.getResponses().length;
+      if (currentResponseCount >= maxResponses) {
+        form.setAcceptingResponses(false);
+      }
+    }
+  } finally {
+    lock.releaseLock(); // Release the lock
   }
 }
+
 
 /**
  * Creates an onFormSubmit trigger for the checkResponseLimit function if it doesn't exist.

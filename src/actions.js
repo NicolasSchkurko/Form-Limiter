@@ -6,6 +6,9 @@ var scriptProperties = PropertiesService.getScriptProperties();
  * @returns {string} A confirmation or error message.
  */
 function setMaxResponses(limit) {
+  var lock = LockService.getScriptLock();
+  lock.waitLock(30000);
+
   try {
     var limitNumber = parseInt(limit, 10);
 
@@ -25,6 +28,8 @@ function setMaxResponses(limit) {
 
     throw new Error(e.message);
 
+  }finally {
+    lock.releaseLock();
   }
 }
 
@@ -34,6 +39,9 @@ function setMaxResponses(limit) {
  * @returns {string} A confirmation message.
  */
 function setConfirmationMessage(message) {
+  var lock = LockService.getScriptLock();
+  lock.waitLock(30000);
+
   try {
 
     if (messageIsEmtpy(message)) {
@@ -49,6 +57,8 @@ function setConfirmationMessage(message) {
       throw new Error('Permission Error: It seems you have multiple Google accounts logged in. Please log out of other accounts and try again.');
     }
     throw new Error(e.message);
+  } finally {
+    lock.releaseLock();
   }
 }
 
@@ -58,6 +68,9 @@ function setConfirmationMessage(message) {
  * @returns {string} A confirmation message.
  */
 function setClosedMessage(message) {
+  var lock = LockService.getScriptLock();
+  lock.waitLock(30000);
+
   try {
     if (messageIsEmtpy(message)) {
       throw new Error('Closed form message cannot be empty.');
@@ -80,6 +93,8 @@ function setClosedMessage(message) {
       throw new Error('Permission Error: It seems you have multiple Google accounts logged in. Please log out of other accounts and try again.');
     }
     throw new Error(e.message);
+  } finally {
+    lock.releaseLock();
   }
 }
 
