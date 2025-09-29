@@ -9,16 +9,23 @@ function checkResponseLimit(e) {
   lock.waitLock(30000); // Wait for any other modifications to finish.
   try {
     var form = FormApp.getActiveForm();
-    var maxResponses = parseInt(scriptProperties.getProperty('maxResponses') || '0', 10);
 
+    if (!form.isAcceptingResponses()) {
+      form.deleteResponse(e.response.getId());
+      return;
+    }
+
+    var maxResponses = parseInt(scriptProperties.getProperty('maxResponses') || '0', 10);
     if (maxResponses <= 0) return;
 
-    // We only need to check if the form is still open
-    if (form.isAcceptingResponses()) {
-      var currentResponseCount = form.getResponses().length;
-      if (currentResponseCount >= maxResponses) {
-        form.setAcceptingResponses(false);
-      }
+    var currentResponseCount = form.getResponses().length;
+
+    if (currentResponseCount > maxResponses) {
+      form.setAcceptingResponses(false);
+      form.deleteResponse(e.response.getId());
+    }
+    else if (currentResponseCount == maxResponses) {
+      form.setAcceptingResponses(false);
     }
   } finally {
     lock.releaseLock(); // Release the lock
